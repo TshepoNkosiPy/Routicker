@@ -15,7 +15,7 @@ A beautiful, interactive web application for building and tracking habits with a
 ## 🚀 Live Demo
 
 Access the live application on GitHub Pages:
-**[Rou-Ticker Premium]([[routicker.vercel.app](https://routicker.vercel.app/)](https://routicker.vercel.app/))**
+**[Rou-Ticker Premium](https://routicker.vercel.app/)**
 
 ## 📋 Getting Started
 
