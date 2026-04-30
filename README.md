@@ -15,7 +15,7 @@ A beautiful, interactive web application for building and tracking habits with a
 ## 🚀 Live Demo
 
 Access the live application on GitHub Pages:
-**[Rou-Ticker Premium](https://TshepoNkosiPy.github.io/Routicker/routicker_premium.html)**
+**[Rou-Ticker Premium](routicker.vercel.app)**
 
 ## 📋 Getting Started
 
