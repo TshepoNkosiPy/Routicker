@@ -4,13 +4,86 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rou-Ticker Premium - Animated Habit Tracker with AI Intelligence</title>
-  <script>
-    // Redirect to the main app
-    window.location.href = 'routicker_premium.html';
-  </script>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Rou-Ticker Premium: An elegant, interactive habit tracking web app with particle animations, dark mode, and AI-powered motivation. Track up to 2 habits simultaneously with beautiful visualizations and progress intelligence.">
+  <meta name="keywords" content="habit tracker, productivity, habit building, habit management, goal tracking, discipline, daily habits, progress tracking, interactive UI, web app">
+  <meta name="author" content="TshepoNkosiPy">
+  <meta name="theme-color" content="#378ADD">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="7 days">
+  
+  <!-- Open Graph Tags (Social Media) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rou-Ticker Premium - Animated Habit Tracker">
+  <meta property="og:description" content="Build lasting habits with an elegant, interactive habit tracker featuring particle animations and intelligent progress tracking.">
+  <meta property="og:url" content="https://TshepoNkosiPy.github.io/Routicker/">
+  <meta property="og:site_name" content="Rou-Ticker Premium">
+  
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rou-Ticker Premium - Interactive Habit Tracker">
+  <meta name="twitter:description" content="Track habits with beautiful animations and intelligent insights. Build discipline through consistency.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="routicker_premium.css">
 </head>
 <body>
-  <p>Redirecting to Rou-Ticker Premium...</p>
-  <p>If not redirected automatically, <a href="routicker_premium.html">click here</a>.</p>
+  <canvas id="bg-animation" aria-hidden="true"></canvas>
+
+  <h1 class="sr-only">Rou-Ticker — a premium animated habit tracker with elegant serif typography and sky blue accents</h1>
+  <div class="root" id="root">
+    <main class="page" role="main">
+      <header class="header">
+        <div class="logo-lockup" style="animation:logoFloat 4s ease-in-out infinite" aria-label="Rou-Ticker logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
+          </div>
+          <span class="logo-text">Rou<em>·</em>Ticker</span>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg viewBox="0 0 24 24" class="theme-icon">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <p class="logo-tag">PRECISION HABIT INTELLIGENCE</p>
+        <div class="title-rule" style="background:linear-gradient(90deg,transparent,#378ADD,transparent);animation:ruleShimmer 4s linear infinite;background-size:200% 100%"></div>
+        <p class="header-sub" id="date-sub">Track with intention · Build with discipline</p>
+      </header>
+      <section class="mot-strip" aria-label="Motivational message">
+        <div class="mot-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        </div>
+        <p class="mot-text" id="mot-text"><b>Read 20 pages needs your focus today.</b> Discipline compounds — every streak matters.</p>
+      </section>
+      <section class="cards-grid" id="cards-grid" aria-label="Habit cards"></section>
+      <div class="section-rule" id="srule" style="display:none"></div>
+      <aside class="summary-panel" id="summary-panel" style="display:none" aria-live="polite">
+        <p class="panel-heading">Progress intelligence</p>
+        <div id="cmp-rows"></div>
+        <p class="insight" id="insight-text">Small daily wins build lasting habits.</p>
+      </aside>
+      <section id="add-section" class="add-section" aria-label="Add new habit">
+        <p class="add-label">New habit</p>
+        <div class="add-row">
+          <input class="add-input" id="habit-input" type="text" placeholder="Name your habit…" maxlength="32" aria-label="Habit name" autocomplete="off"/>
+          <button class="add-btn" onclick="addHabit()" aria-label="Add habit">Add</button>
+        </div>
+      </section>
+      <section id="full-notice" class="full-notice" style="display:none" aria-live="assertive">
+        <div class="full-notice-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <p class="full-notice-text"><b>At full capacity.</b> Two habits in focus — stay the course.</p>
+          <p class="remove-hint">Hover a card and tap × to release a habit.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="routicker_premium.js"></script>
 </body>
 </html>
