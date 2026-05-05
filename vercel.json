@@ -11,10 +11,7 @@
       "dest": "/$1"
     }
   ],
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "JWT_SECRET": "@jwt_secret"
-  },
+  "env": {},
   "functions": {
     "api/**/*.js": {
       "memory": 1024,
