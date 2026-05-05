@@ -1,6 +1,7 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
+  "buildCommand": "echo 'Static files ready'",
+  "devCommand": "vercel dev",
+  "outputDirectory": ".",
   "routes": [
     {
       "src": "^/api/(.*)$",
