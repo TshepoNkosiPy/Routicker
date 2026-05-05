@@ -658,3 +658,64 @@ body.dark-mode .dot.today-open {
 body.dark-mode .empty-state {
   color: #a0c4e8;
 }
+
+/* Logout Button & User Info Styles */
+.header-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#user-info {
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+}
+
+#user-name {
+  font-weight: 500;
+  color: #378ADD;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+body.dark-mode #user-info {
+  color: #a0c4e8;
+}
+
+body.dark-mode #user-name {
+  color: #56b3e8;
+}
+
+body.dark-mode .logout-btn {
+  background: linear-gradient(135deg, #56b3e8 0%, #378ADD 100%);
+  box-shadow: 0 2px 8px rgba(56, 138, 221, 0.2);
+}
+
+body.dark-mode .logout-btn:hover {
+  box-shadow: 0 4px 12px rgba(56, 138, 221, 0.3);
+}

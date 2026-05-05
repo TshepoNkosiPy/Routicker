@@ -45,11 +45,19 @@
           </div>
           <span class="logo-text">Rou<em>·</em>Ticker</span>
         </div>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-          <svg viewBox="0 0 24 24" class="theme-icon">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
+        <div class="header-controls" style="display: flex; gap: 15px; align-items: center;">
+          <div id="user-info" style="font-size: 14px; color: #666;">
+            <span id="user-name"></span>
+          </div>
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <svg viewBox="0 0 24 24" class="theme-icon">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+          <button class="logout-btn" id="logout-btn" onclick="handleLogout()" aria-label="Log out">
+            Logout
+          </button>
+        </div>
         <p class="logo-tag">PRECISION HABIT INTELLIGENCE</p>
         <div class="title-rule" style="background:linear-gradient(90deg,transparent,#378ADD,transparent);animation:ruleShimmer 4s linear infinite;background-size:200% 100%"></div>
         <p class="header-sub" id="date-sub">Track with intention · Build with discipline</p>
@@ -85,6 +93,34 @@
       </section>
     </main>
   </div>
+  <script src="lib/api.js"></script>
   <script src="routicker_premium.js"></script>
-</body>
-</html>
+  <script>
+    /**
+     * Authentication & Initialization
+     */
+    
+    // Check if user is authenticated
+    function initializeApp() {
+      if (!window.rou || !window.rou.auth.isAuthenticated()) {
+        // Redirect to login if not authenticated
+        window.location.href = 'auth.html';
+        return;
+      }
+
+      // Display user name
+      const user = window.rou.auth.user;
+      document.getElementById('user-name').textContent = `Hello, ${user.name}!`;
+    }
+
+    // Handle logout
+    function handleLogout() {
+      if (confirm('Are you sure you want to log out?')) {
+        window.rou.auth.logout();
+        window.location.href = 'auth.html';
+      }
+    }
+
+    // Initialize app when page loads
+    window.addEventListener('load', initializeApp);
+  </script>
