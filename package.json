@@ -1,6 +1,6 @@
 {
   "name": "rou-ticker-premium",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Premium animated habit tracker with cloud database integration",
   "main": "index.html",
   "scripts": {
