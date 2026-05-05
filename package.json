@@ -5,16 +5,8 @@
   "main": "index.html",
   "scripts": {
     "dev": "vercel dev",
-    "build": "npm run setup:example",
-    "setup:example": "echo 'Checking configuration...' && echo 'All frontend files are ready for deployment!'",
+    "build": "echo 'Frontend ready for deployment'",
     "start": "node -m http.server 8000"
-  },
-  "dependencies": {
-    "pg": "^8.11.3",
-    "jsonwebtoken": "^9.1.2",
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5",
-    "express": "^4.18.2"
   },
   "devDependencies": {
     "vercel": "^32.0.0"
