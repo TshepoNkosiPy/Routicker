@@ -11,16 +11,10 @@
       "dest": "/$1"
     }
   ],
-  "env": [
-    {
-      "key": "DATABASE_URL",
-      "description": "Supabase PostgreSQL connection string"
-    },
-    {
-      "key": "JWT_SECRET",
-      "description": "Secret key for JWT token signing"
-    }
-  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret"
+  },
   "functions": {
     "api/**/*.js": {
       "memory": 1024,
