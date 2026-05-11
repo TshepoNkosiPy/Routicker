@@ -14,8 +14,12 @@ A beautiful, interactive web application for building and tracking habits with a
 
 ## 🚀 Live Demo
 
-Access the live application on GitHub Pages:
+Access the live application:
 **[Rou-Ticker Premium](https://routicker.vercel.app/)**
+
+### Test Credentials (with Supabase database)
+- Email: test@example.com
+- Password: test123
 
 ## 📋 Getting Started
 

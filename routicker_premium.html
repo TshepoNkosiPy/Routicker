@@ -39,13 +39,7 @@
   <div class="root" id="root">
     <main class="page" role="main">
       <header class="header">
-        <div class="logo-lockup" style="animation:logoFloat 4s ease-in-out infinite" aria-label="Rou-Ticker logo">
-          <div class="logo-mark">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
-          </div>
-          <span class="logo-text">Rou<em>·</em>Ticker</span>
-        </div>
-        <div class="header-controls" style="display: flex; gap: 15px; align-items: center;">
+        <div class="header-top">
           <div id="user-info" style="font-size: 14px; color: #666;">
             <span id="user-name"></span>
           </div>
@@ -54,9 +48,12 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           </button>
-          <button class="logout-btn" id="logout-btn" onclick="handleLogout()" aria-label="Log out">
-            Logout
-          </button>
+        </div>
+        <div class="logo-lockup" aria-label="Rou-Ticker logo">
+          <div class="logo-mark">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
+          </div>
+          <span class="logo-text">Rou<em>·</em>Ticker</span>
         </div>
         <p class="logo-tag">PRECISION HABIT INTELLIGENCE</p>
         <div class="title-rule" style="background:linear-gradient(90deg,transparent,#378ADD,transparent);animation:ruleShimmer 4s linear infinite;background-size:200% 100%"></div>
@@ -91,18 +88,39 @@
           <p class="remove-hint">Hover a card and tap × to release a habit.</p>
         </div>
       </section>
+      <footer class="page-footer">
+        <button class="logout-btn" id="logout-btn" onclick="handleLogout()" aria-label="Log out">
+          Logout
+        </button>
+      </footer>
     </main>
   </div>
-  <script src="lib/api.js"></script>
+  <script src="lib/api.js?v=20260511"></script>
   <script src="routicker_premium.js"></script>
   <script>
     /**
      * Authentication & Initialization
      */
     
-    // Check if user is authenticated
+    // Check if user is authenticated with retry logic
     function initializeApp() {
-      if (!window.rou || !window.rou.auth.isAuthenticated()) {
+      // Wait for API to be loaded
+      if (!window.rou || !window.rou.auth) {
+        // API not loaded yet, retry after a short delay
+        if (!window.apiRetryCount) window.apiRetryCount = 0;
+        if (window.apiRetryCount < 3) {
+          window.apiRetryCount++;
+          console.log('API not ready, retrying...', window.apiRetryCount);
+          setTimeout(initializeApp, 500);
+          return;
+        }
+        // Give up after 3 retries
+        console.error('API failed to load');
+        window.location.href = 'auth.html';
+        return;
+      }
+      
+      if (!window.rou.auth.isAuthenticated()) {
         // Redirect to login if not authenticated
         window.location.href = 'auth.html';
         return;
@@ -111,6 +129,28 @@
       // Display user name
       const user = window.rou.auth.user;
       document.getElementById('user-name').textContent = `Hello, ${user.name}!`;
+      
+      // Load habits from API
+      if (window.rou && window.rou.habits && window.rou.habits.fetchHabits) {
+        window.rou.habits.fetchHabits()
+          .then(fetchedHabits => {
+            // Convert API habit format to local format
+            window.habitsFromAPI = fetchedHabits.map(h => ({
+              id: h.id,
+              name: h.name,
+              done: h.completed || false,
+              log: h.log || [0,0,0,0,0,0,0]
+            }));
+            // Clear default habits and use API habits
+            habits = window.habitsFromAPI;
+            nid = Math.max(...habits.map(h => h.id), 0) + 1;
+            render();
+          })
+          .catch(error => {
+            console.error('Failed to load habits:', error);
+            // Keep default habits on error
+          });
+      }
     }
 
     // Handle logout

@@ -132,15 +132,8 @@ animateBg();
 
 // ===== Habit Tracker =====
 let habits = [];
-let nid = 1;
+let nid = 3;
 const DAYS = 7;
-
-// Sample data to match the design
-habits = [
-  {id: 1, name: 'Morning run', done: false, log: [1, 1, 0, 1, 0, 1, 0]},
-  {id: 2, name: 'Read 20 pages', done: false, log: [0, 1, 0, 0, 1, 0, 0]},
-];
-nid = 3;
 
 function getStatus(habit) {
   const completed = habit.log.reduce((a,b) => a+b, 0);
@@ -181,7 +174,7 @@ function render() {
   document.getElementById('srule').style.display = '';
   document.getElementById('summary-panel').style.display = '';
   
-  // Hide add-section and show full-notice when at capacity
+  // Limit to 2 habits
   if (habits.length >= 2) {
     document.getElementById('add-section').style.display = 'none';
     document.getElementById('full-notice').style.display = '';
@@ -250,21 +243,71 @@ function toggleDone(id, c) {
   if (h) {
     h.done = c;
     h.log[DAYS-1] = c ? 1 : 0;
+    
+    // Call API to update completion status
+    if (window.rou && window.rou.habits && window.rou.habits.toggleHabitCompletion) {
+      window.rou.habits.toggleHabitCompletion(id, c, h.log)
+        .catch(error => {
+          console.error('Failed to update habit completion:', error);
+          // Still render locally even if API fails
+        });
+    }
+    
     render();
   }
 }
 
 function removeHabit(id) {
-  habits = habits.filter(x => x.id !== id);
-  render();
+  // Call API to delete habit
+  if (window.rou && window.rou.habits && window.rou.habits.deleteHabit) {
+    window.rou.habits.deleteHabit(id)
+      .then(() => {
+        habits = habits.filter(x => x.id !== id);
+        render();
+      })
+      .catch(error => {
+        console.error('Failed to delete habit:', error);
+        alert('Failed to delete habit: ' + error.message);
+      });
+  } else {
+    // Fallback: delete locally if API not available
+    habits = habits.filter(x => x.id !== id);
+    render();
+  }
 }
 
 function addHabit() {
   const inp = document.getElementById('habit-input'), val = inp.value.trim();
-  if (!val || habits.length >= 2) return;
-  habits.push({id: nid++, name: val, done: false, log: [0,0,0,0,0,0,0]});
-  inp.value = '';
-  render();
+  if (!val) return;
+  if (habits.length >= 2) {
+    alert('You can only have a maximum of 2 habits. Remove one to add another.');
+    return;
+  }
+  
+  // Call API to create habit
+  if (window.rou && window.rou.habits && window.rou.habits.createHabit) {
+    window.rou.habits.createHabit(val, '')
+      .then(habit => {
+        // Add to local habits array
+        habits.push({
+          id: habit.id || Date.now(),
+          name: habit.name || val,
+          done: habit.completed || false,
+          log: [0,0,0,0,0,0,0]
+        });
+        inp.value = '';
+        render();
+      })
+      .catch(error => {
+        console.error('Failed to create habit:', error);
+        alert('Failed to create habit: ' + error.message);
+      });
+  } else {
+    // Fallback: Add habit locally if API not available
+    habits.push({id: nid++, name: val, done: false, log: [0,0,0,0,0,0,0]});
+    inp.value = '';
+    render();
+  }
 }
 
 document.getElementById('habit-input').addEventListener('keydown', e => {

@@ -54,9 +54,29 @@ body.dark-mode #bg-animation {
 }
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   position: relative;
+  padding-bottom: 1.5rem;
 }
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 0 0.5rem;
+}
+
+#user-info {
+  font-size: 14px;
+  color: #666;
+}
+
+body.dark-mode #user-info {
+  color: #a0c4e8;
+}
+
 .logo-lockup {
   display: flex;
   align-items: center;
@@ -65,12 +85,33 @@ body.dark-mode #bg-animation {
   font-family: 'Playfair Display', serif;
   font-weight: 500;
   gap: 0.5rem;
+  margin-bottom: 1rem;
 }
+.logo-mark {
+  animation: float 4s ease-in-out infinite;
+}
+
 .logo-mark svg {
   width: 32px;
   height: 32px;
-  fill: #378ADD;
+  stroke: #378ADD;
+  fill: none;
+  stroke-width: 2;
 }
+
+body.dark-mode .logo-mark svg {
+  stroke: #56b3e8;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 .logo-text em {
   font-style: normal;
   color: #378ADD;
@@ -97,11 +138,12 @@ body.dark-mode #bg-animation {
 .mot-strip {
   background: #eaf4fb;
   border-radius: 12px;
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 1.75rem;
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
 }
 .mot-icon svg {
   width: 24px;
@@ -117,8 +159,9 @@ body.dark-mode #bg-animation {
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
 }
 .section-rule {
   height: 1px;
@@ -129,8 +172,9 @@ body.dark-mode #bg-animation {
   background: #fff;
   border: 1px solid #e0eaf5;
   border-radius: 18px;
-  padding: 1.3rem 1.4rem 1.1rem;
-  margin-bottom: 1.6rem;
+  padding: 1.5rem 1.6rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 .panel-heading {
   font-size: 0.8rem;
@@ -213,8 +257,9 @@ body.dark-mode #bg-animation {
 .page {
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  padding: 2.5rem 2rem;
+  max-width: 1200px;
+  padding: 2.5rem 3rem;
+  margin: 0 auto;
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -226,7 +271,7 @@ body.dark-mode #bg-animation {
   background: #fff;
   border: 1px solid #e0eaf5;
   border-radius: 20px;
-  padding: 2rem 1.8rem;
+  padding: 2.25rem 2rem;
   position: relative;
 }
 .h-card:hover {
@@ -458,9 +503,6 @@ body.dark-mode #bg-animation {
 
 /* Theme Toggle Button */
 .theme-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
   width: 40px;
   height: 40px;
   border: none;
@@ -471,6 +513,8 @@ body.dark-mode #bg-animation {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease, color 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
 }
 
 .theme-toggle:hover {
@@ -664,9 +708,6 @@ body.dark-mode .empty-state {
   display: flex;
   gap: 15px;
   align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
 #user-info {
@@ -703,6 +744,14 @@ body.dark-mode .empty-state {
   transform: translateY(0);
 }
 
+.page-footer {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+  margin-top: 4rem;
+  border-top: 1px solid #e0e8f0;
+}
+
 body.dark-mode #user-info {
   color: #a0c4e8;
 }
@@ -718,4 +767,8 @@ body.dark-mode .logout-btn {
 
 body.dark-mode .logout-btn:hover {
   box-shadow: 0 4px 12px rgba(56, 138, 221, 0.3);
+}
+
+body.dark-mode .page-footer {
+  border-top-color: #1a2538;
 }
